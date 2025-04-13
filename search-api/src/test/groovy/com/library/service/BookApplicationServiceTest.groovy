@@ -3,12 +3,15 @@ package com.library.service
 import com.library.entity.DailyStat
 import spock.lang.Specification
 
+import java.time.LocalDate
+
 
 class BookApplicationServiceTest extends Specification {
     BookApplicationService bookApplicationService;
 
     DailyStatCommandService dailyStatCommandService = Mock(DailyStatCommandService)
     BookQueryService bookQueryService = Mock(BookQueryService)
+    DailyStatQueryService dailyStatQueryService = Mock(DailyStatQueryService)
 
     void setup() {
         bookApplicationService = new BookApplicationService(bookQueryService, dailyStatCommandService)
@@ -37,6 +40,22 @@ class BookApplicationServiceTest extends Specification {
                 assert dailyStat.query == givenQuery
         }
 
+    }
+
+    def "findQueryCount 메서드 호출시 인자를 그대로 넘긴다."() {
+        given:
+        def givenQuery = "HTTP"
+        def givenDate = LocalDate.of(2024, 5, 1)
+
+        when:
+        bookApplicationService.findQueryCount(givenQuery, givenDate)
+
+        then:
+        1 * dailyStatQueryService.findQueryCount(*_) >> {
+            String query, LocalDate date ->
+                assert query == givenQuery
+                assert date == givenDate
+        }
     }
 
 }
