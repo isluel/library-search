@@ -1,8 +1,10 @@
 package com.library.controller;
 
+import com.library.controller.request.SearchRequest;
 import com.library.controller.response.PageResult;
 import com.library.controller.response.SearchResponse;
 import com.library.service.BookQueryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +18,7 @@ public class BookController {
     private final BookQueryService bookservice;
 
     @GetMapping
-    public PageResult<SearchResponse> search(@RequestParam("query") String query,
-                                             @RequestParam("page") int page,
-                                             @RequestParam("size") int size) {
-        return bookservice.search(query, page, size);
-
+    public PageResult<SearchResponse> search(@Valid SearchRequest request) {
+        return bookservice.search(request.getQuery(), request.getPage(),request.getSize());
     }
 }
