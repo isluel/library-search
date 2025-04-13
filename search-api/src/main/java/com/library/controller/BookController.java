@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/books")
@@ -37,5 +38,11 @@ public class BookController {
             , @RequestParam("date") LocalDate date) {
         log.info("[BookController] find stat query={}, date={}", query, date);
         return bookApplicationService.findQueryCount(query, date);
+    }
+
+    @GetMapping("/stats/ranking")
+    public List<StatResponse> findTop5Stats() {
+        log.info("[BookController] find top 5 stats");
+        return bookApplicationService.findTop5Query();
     }
 }
