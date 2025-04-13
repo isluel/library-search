@@ -1,5 +1,6 @@
 package com.library.controller
 
+import com.library.service.BookApplicationService
 import com.library.service.BookQueryService
 import org.springframework.http.HttpStatus
 import org.springframework.test.web.servlet.MockMvc
@@ -9,13 +10,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import spock.lang.Specification
 
 class BookControllerTest extends Specification {
-    BookQueryService bookQueryService = Mock(BookQueryService)
+    // BookQueryService bookQueryService = Mock(BookQueryService)
+    BookApplicationService bookApplicationService = Mock(BookApplicationService)
 
     BookController bookController
     MockMvc mockMvc
 
     void setup() {
-        bookController = new BookController(bookQueryService)
+        bookController = new BookController(bookApplicationService)
         mockMvc = MockMvcBuilders.standaloneSetup(bookController).build()
     }
 
@@ -35,7 +37,7 @@ class BookControllerTest extends Specification {
         response.getStatus() == HttpStatus.OK.value()
 
         and:
-        1 * bookQueryService.search(*_) >> {
+        1 * bookApplicationService.search(*_) >> {
             String query, int page, int size ->
                 assert query == givenQuery
                 assert page == givenPage
