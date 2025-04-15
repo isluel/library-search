@@ -3,7 +3,7 @@ package com.library;
 import java.util.List;
 
 // record 로 만들어봄..!!
-public record Documents (
+public record Document(
         String title,
         List<String> authors,
         String isbn,

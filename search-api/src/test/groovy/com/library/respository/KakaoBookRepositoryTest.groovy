@@ -1,7 +1,6 @@
 package com.library.respository
 
-import com.library.Documents
-import com.library.Item
+import com.library.Document
 import com.library.KakaoBookResponse
 import com.library.Meta
 import com.library.feign.KakaoClient
@@ -21,8 +20,8 @@ class KakaoBookRepositoryTest extends Specification {
     def "search 호출 시 적절한 데이터 형식으로 변환"() {
         given:
         def documents = [
-                new Documents("제목1", ["저자"], "출판사", "isbn", "2016-02-01T00:00:00.000+09:00"),
-                new Documents("제목2", ["저자2"], "출판사2", "isbn2", "2016-02-01T00:00:00.000+09:00"),
+                new Document("제목1", ["저자"], "출판사", "isbn", "2016-02-01T00:00:00.000+09:00"),
+                new Document("제목2", ["저자2"], "출판사2", "isbn2", "2016-02-01T00:00:00.000+09:00"),
         ]
         def meta = new Meta(false, 1, 10)
         def response = new KakaoBookResponse(documents, meta)

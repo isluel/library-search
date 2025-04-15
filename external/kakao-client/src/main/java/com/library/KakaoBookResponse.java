@@ -4,7 +4,7 @@ import java.util.List;
 
 // record 로 만들어봄..!!
 public record KakaoBookResponse(
-        List<Documents> documents,
+        List<Document> documents,
         Meta meta
 ) {
 

@@ -1,6 +1,6 @@
 package com.library.respository;
 
-import com.library.Documents;
+import com.library.Document;
 import com.library.controller.response.PageResult;
 import com.library.controller.response.SearchResponse;
 import com.library.feign.KakaoClient;
@@ -24,13 +24,13 @@ public class KakaoBookRepository implements BookRepository{
         return new PageResult<>(page, size, response.meta().totalCount(), responses);
     }
 
-    private SearchResponse createResponse(Documents documents) {
+    private SearchResponse createResponse(Document document) {
         return SearchResponse.builder()
-                .title(documents.title())
-                .author(documents.authors().get(0))
-                .publisher(documents.publisher())
-                .pubDate(DateUtils.parseOffsetDateTime(documents.datetime()).toLocalDate())
-                .isbn(documents.isbn())
+                .title(document.title())
+                .author(document.authors().get(0))
+                .publisher(document.publisher())
+                .pubDate(DateUtils.parseOffsetDateTime(document.datetime()).toLocalDate())
+                .isbn(document.isbn())
                 .build();
     }
 }
